@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= data.name
+  ul
+    each n, p in data.properties
+      if(typeof(n) === "object" && n.properties)
+        li #{p}
+        ul
+          each n1, p1 in n.properties
+            if(typeof(n1) === "object" && n1.properties)
+              li #{p1}
+              ul
+                each n2, p2 in n1.properties
+                  if(typeof(n2) === "object" && n2.properties)
+                    li #{p2}
+                    ul
+                      each n3, p3 in n2.properties
+                        li= p3
+                  else if(typeof(n2) === "object")
+                    li #{p2} - Yes
+                  else
+                    li #{p2} = #{n2}
+            else if(typeof(n1) === "object")
+              li #{p1} - Yes
+            else
+              li #{p1} = #{n1}
+      else if(typeof(n) === "object")
+        li #{p} - Yes
+      else
+        li #{p} = #{n}
